@@ -149,6 +149,10 @@ TrangThaiPhong nvarchar(10),
 foreign key (MaLP) references LoaiPhong(MaLoaiPhong)
 )
 
+UPDATE Phong
+SET TrangThaiPhong = N'Đầy'
+WHERE MaPhong IN ('P003', 'P005');
+
 INSERT INTO Phong(MaPhong, MaLP, TenPhong, GiaPhong, SoNguoiToiDa,TrangThaiPhong)
 VALUES
 ('P001', 'LP001', 'Phong 001', 2000000.00, 5,N'Chờ'),
@@ -177,6 +181,11 @@ foreign key (MaKH) references KhachHang(MaKhachHang),
 foreign key (MaNV) references NhanVien(MaNhanVien)
 )
 
+INSERT INTO PhieuDatPhong (MaPhieuDatPhong, MaP, MaKH, MaNV, NgayDatPhong, GioNhanPhong, TrangThaiDon)
+VALUES
+('PDP00330112315', 'P003', 'KHA017', 'NV002', '2023-01-15', '2023-01-15 12:00:00', N'Chưa thanh toán'),
+('PDP00530112315', 'P005', 'KHA020', 'NV003', '2023-02-20', '2023-02-20 14:30:00', N'Chưa thanh toán');
+
 SELECT * FROM PhieuDatPhong
 
 Create table HoaDon(
@@ -193,6 +202,12 @@ foreign key (MaNV) references NhanVien(MaNhanVien),
 foreign key (MaP) references Phong(MaPhong),
 foreign key (MaKM) references KhuyenMai(MaKhuyenMai)
 )
+
+INSERT INTO HoaDon (MaHoaDon, NgayLapHD, MaNV, TenKhachHang, MaP, GioNhanPhong, GioTraPhong, MaKM, TongTien)
+VALUES
+('HD301123151339', '2023-01-15', 'NV002', N'Nguyễn Văn Linh', 'P003', '2023-01-15 12:00:00', NULL, NULL, NULL),
+('HD301123151448', '2023-02-20', 'NV003', N'Phạm Thị Ý', 'P005', '2023-02-20 14:30:00', NULL, NULL, NULL);
+
 select * from HoaDon
 
 CREATE TABLE CT_HoaDon (
@@ -205,3 +220,4 @@ CREATE TABLE CT_HoaDon (
     FOREIGN KEY (MaP) REFERENCES Phong(MaPhong),
 	FOREIGN KEY (MaDV) REFERENCES DichVu(MaDichVu)
 );
+
